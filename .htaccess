@@ -1,0 +1,13 @@
+
+# This .htaccess file is for Enhanced Student News
+
+RewriteEngine on
+
+# Student News
+#RewriteRule ^calvin-student-news/view/latest/?$ src/latest-issue.html [L]
+RewriteRule ^calvin-student-news/view/latest/?$ src/testview.php [L]
+RewriteRule ^calvin-student-news/view/([0-9]{6}/[0-9]{4}(\.html)?)$ src/testview.php?issue=student-news/$1 [L]
+RewriteRule ^calvin-student-news/rss/(.*)$ src/rss/$1 [L]
+# Calvin News
+RewriteRule ^calvin-news/view/latest/?$ src/testview.php?calvinnews [L]
+RewriteRule ^calvin-news/view/([0-9]{6}/[0-9]{4}(\.html)?)$ src/testview.php?issue=calvin-news/$1 [L]
