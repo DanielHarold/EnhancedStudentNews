@@ -6,8 +6,13 @@ function getLastIssuePath($calvinNews = false) {
 	return getLastIssuePathAsOfMonth(@date('Ym'), $calvinNews);
 }
 
-function getLastIssuePathAsOfMonth($monthString, $calvinNews = false, $prevMonthsToCheck = 3) {
+function getLastIssuePathAsOfMonth($monthString, $calvinNews, $prevMonthsToCheck = 3) {
 	$newsFolder = ($calvinNews) ? 'calvin-news' : 'student-news';
+	
+	// If we are passed a "0" month, subtract another (100-12) to get to December of the previous year.
+	if ($monthString % 100 == 0) {
+		$monthString -= (100 - 12);
+	}
 	
 	$url = BASE_SOURCE_URL . $newsFolder . '/' . $monthString . '/';
 	$ch = curl_init($url);
@@ -26,11 +31,7 @@ function getLastIssuePathAsOfMonth($monthString, $calvinNews = false, $prevMonth
 		// Check the previous month
 		if ($prevMonthsToCheck > 0) {
 			// To get the previous month, subtract 1 from the current month.
-			// If we end up with a 0 month, subtract another (100-12) to get to December of the previous year.
 			$prevMonthString = $monthString - 1;
-			if ($monthString % 100 == 0) {
-				$monthString -= (100 - 12);
-			}
 			return getLastIssuePathAsOfMonth($prevMonthString, $calvinNews, $prevMonthsToCheck - 1);
 		} else {
 			return false;

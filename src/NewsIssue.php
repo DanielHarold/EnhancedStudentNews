@@ -11,6 +11,8 @@ class NewsIssue {
 	public $issueNumber;
 	public $issueDateString;
 	
+	public $monthPathString;
+	
 	public $newsItems = array();
 	public $newsItemsCount = 0;
 	
@@ -20,6 +22,9 @@ class NewsIssue {
 	public $sourceURL;
 	
 	private $sourceHTML;
+	
+	private $previousIssuePath = '';
+	private $nextIssuePath = '';
 	
 	public static function getLatestIssue($calvinNews = false) {
 		$issuePath = getLastIssuePath($calvinNews);
@@ -63,6 +68,10 @@ class NewsIssue {
 		}
 		$subject = $matches[1];
 		$this->issueTitle = 'Enhanced ' . preg_replace('/V[0-9]+ /', '', $subject);
+		
+		// Load issue month path
+		$result = preg_match('#<\\!-- isoreceived="([0-9]{6})#', $this->sourceHTML, $matches);
+		$this->monthPathString = $matches[1];
 		
 		// Load email body
 		$result = preg_match('/<\\/address>\\n<p>\\n(.+?) +([SMTWF].*)<p>End of ' . preg_quote($subject, '/') . '/s', $this->sourceHTML, $matches);
@@ -197,6 +206,9 @@ class NewsIssue {
 			$out .= $newsItem->getFormattedHTML($this->newsItemsCount > 1);
 		}
 		
+		// navigation for web format (again)
+		$out .= $webNavLinks;
+		
 		$out .= '</div>' . "\n"; // close invisible bounding box
 		$out .= $this->getFooter($emailFormat, $verse != '');
 		$out .= '</div></body></html>';
@@ -244,11 +256,60 @@ class NewsIssue {
 	}
 	
 	public function getPreviousIssuePath() {
+		if ($this->previousIssuePath === '') {
+			$result = preg_match('#<dfn>Previous message</dfn>: <a href="([0-9]+)\\.html"#', $this->sourceHTML, $matches);
+			if ($result > 0) {
+				$this->previousIssuePath = $this->monthPathString . '/' . $matches[1];
+			} else {
+				$this->previousIssuePath = getLastIssuePathAsOfMonth($this->monthPathString - 1, $this->isCalvinNews);
+			}
+		}
 		
+		if ($this->previousIssuePath === false) {
+			return false;
+		}
+		
+		if (defined('TEST_MODE')) {
+			$baseViewPath = '/calvin-student-news/TEST/view/';
+		} else {
+			$baseViewPath = '/calvin-student-news/view/';
+		}
+		
+		return $baseViewPath . $this->previousIssuePath;
 	}
 	
 	public function getNextIssuePath() {
+		if ($this->nextIssuePath === '') {
+			$result = preg_match('#<dfn>Next message</dfn>: <a href="([0-9]+)\\.html"#', $this->sourceHTML, $matches);
+			if ($result > 0) {
+				$this->nextIssuePath = $this->monthPathString . '/' . $matches[1];
+			} else {
+				if (@date('Ym') > $this->monthPathString) {
+					
+					// TODO Fix: This method assumes that the next month has a student news issue.
+					// This fails, for example, in issue #2282 (May 31, 2011)
+					// because there were no issues in June 2011 or even July 2011.
+					
+					$nextMonthPathString = $this->monthPathString + 1;
+					if ($nextMonthPathString % 100 == 13) {
+						// If we end up on month "13", add another (100-12) to get to January of the next year.
+						$nextMonthPathString += (100 - 12);
+					}
+					$this->nextIssuePath = $nextMonthPathString . '/0000';
+				} else {
+					$this->nextIssuePath = false;
+					return false;
+				}
+			}
+		}
 		
+		if (defined('TEST_MODE')) {
+			$baseViewPath = '/calvin-student-news/TEST/view/';
+		} else {
+			$baseViewPath = '/calvin-student-news/view/';
+		}
+		
+		return $baseViewPath . $this->nextIssuePath;
 	}
 	
 	private function getSpecialHeaders() {
