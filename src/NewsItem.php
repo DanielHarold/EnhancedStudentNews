@@ -81,7 +81,9 @@ class NewsItem {
 	}
 	
 	function getTOCEntry() {
-		$out = '<li>';
+		// for some reason, Gmail puts a 15px margin-left on list items, so this will apply it in other places
+		$out = '<li style="margin-left: 15px;">';
+		
 		$out .= '<a href="#' . $this->anchorName . '">' . $this->title . '</a>';
 		
 		if ($this->newsIssue->isStudentNews && $this->hasFood) {
@@ -127,36 +129,10 @@ class NewsItem {
 		$out .= $html_body . "\n" . '</div>';
 		
 		if ($includeTopLink) {
-			$out .= '<div style="padding: 4px 8px;"><small>';
+			$out .= '<div style="padding: 4px 8px; font-size: 90%;">';
 			$out .= '<a href="#top" class="noMarkVisited">^ Top</a>';
 			//$out .= ' - <a href="#">Email this to myself</a>';
-			$out .= '</small></div>' . "\n";
-		}
-		
-		$out .= '</div>' . "\n";
-		
-		return $out;
-		// return '<span style="background-color:yellow;border:solid 1px black;">' . 'Test' . '</span>';
-	}
-	
-	function getHTML_dark($includeTopLink = true) {
-		$out = '';
-		
-		$out .= '<a id="' . $this->anchorName . '" name="' . $this->anchorName . '"></a>' . "\n";
-		
-		$out .= '<div style="border: solid 2px #444466; margin: 8px 0px;">' . "\n";
-		$out .= '<div style="background-color: #444466; color: #ffffff; padding: 8px;">' . "\n";
-		
-		$out .= '<strong style="color: #ffffff"><big>' . $this->title . "</big></strong><br />\n";
-		$out .= '<small style="color: #ccccff">by ' . preg_replace('#(.+) &lt;(<a href=".+?">).+#', '<strong>$1</strong> ($2<span style="color: #ccccff"><u>email</u></span></a>)', linkEmailAddresses($this->submitter)) . '</small>';
-		
-		$out .= '</div><div style="background-color: #eeffee; padding: 8px;">';
-		
-		$out .= $this->unwrapNewsItemText(linkEmailAddresses($this->body));
-		
-		if ($includeTopLink) {
-			$out .= "\n" . '</div>';
-			$out .= '<div style="background-color: #444466; color: #ffffff; padding: 8px;"><a href="#top"><span style="color: #ccccff"><u>^ Top</u></span></a></div>' . "\n";
+			$out .= '</div>' . "\n";
 		}
 		
 		$out .= '</div>' . "\n";

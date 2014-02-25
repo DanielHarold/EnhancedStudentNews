@@ -102,7 +102,7 @@ class NewsIssue {
 		$out = '';
 		$verse = '';
 
-		$out .= "<html><head><title>" . $this->issueTitle . "</title><style>body {font-family: Calibri, Arial, sans-serif; background-color: #f0f3ff;} a:link, a:visited.noMarkVisited {color:#444466;} a:visited{color:#666699;} a:hover, a:hover.noMarkVisited {color:#8e8ee4; text-decoration: none;}</style></head>\n";
+		$out .= "<html><head><title>" . $this->issueTitle . "</title><style>body {font-family: Calibri, Arial, sans-serif; background-color: #f1f1ff;} a:link, a:visited.noMarkVisited {color:#444466;} a:visited{color:#666699;} a:hover, a:hover.noMarkVisited {color:#8e8ee4; text-decoration: none;}</style></head>\n";
 
 		$out .= '<body style="margin-left: 0px; margin-right: 0px;">' . "\n";
 
@@ -155,7 +155,7 @@ class NewsIssue {
 
 		$out .= '<h1 style="margin:0px;"><span style="color:#cc3333;text-transform:uppercase;font-size:80%;border:solid 2px #cc3333;background-color:#ffffff;padding:0px 4px;position:relative;top:-2px;">Enhanced</span> ' . str_replace(' ', '&nbsp;', $this->publicationTitle) . '</h1>';
 
-		$out .= '<div><strong>Issue #' . $this->issueNumber . ' - ' . $this->issueDateString . "</strong></div>\n";
+		$out .= '<div><strong>Issue #' . $this->issueNumber . ' &middot; ' . $this->issueDateString . "</strong></div>\n";
 		$out .= '</div>' . "\n"; // close title area
 		
 		// weather widget
