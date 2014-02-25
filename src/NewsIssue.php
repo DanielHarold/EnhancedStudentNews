@@ -142,11 +142,25 @@ class NewsIssue {
 
 		// special headers such as special announcements and Daylight Savings Time reminders
 		$out .= $this->getSpecialHeaders();
-
-		// "top" anchor
-		$out .= '<a id="top" name="top"></a>' . "\n";
+		
 		// invisible box to hold max-width of 800px
 		$out .= '<div style="max-width: 800px; margin-left: auto; margin-right: auto;">' . "\n";
+		
+		// "top" anchor
+		$out .= '<a id="top" name="top"></a>' . "\n";
+		
+		// navigation for web format
+		$webNavLinks = '';
+		if (!$emailFormat) {
+			if ($this->getPreviousIssuePath()) {
+				$webNavLinks .= '<a href="' . $this->getPreviousIssuePath() . '" style="float:left;text-align:left;">&larr; Previous Issue</a>';
+			}
+			if ($this->getNextIssuePath()) {
+				$webNavLinks .= '<a href="' . $this->getNextIssuePath() . '" style="float:right;text-align:right;">Next Issue &rarr;</a>';
+			}
+			$webNavLinks .= '<div>&nbsp;</div>';
+		}
+		$out .= $webNavLinks;
 		
 		// visible box to hold title and contents
 		$out .= '<div style="border: solid 1px #777799; border-radius: 12px; margin: 8px 0px; background-color: #e8e8ff;">';
