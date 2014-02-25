@@ -24,7 +24,7 @@ class NewsItem {
 		$this->newsIssue = $newsIssue;
 		
 		// First, handle the cases where the subject line wraps across two lines.
-		$result = preg_match("#Date: (.+?)\n<br />\nFrom: (.+?)\n<br />\nSubject: (.+?)\n<br />\n<p>(.+?)\n<br />\n(Date: .+?\n<br />\n)?(From: (.+?)\n<br />\n)?Sender: (.+)\n<br />\\nPrecedence: bulk\n<br />\n(Reply-To: .+?\n<br />\n)?<p>(.+)#s", $this->sourceHTML, $matches);
+		$result = preg_match("#Date: (.+?)\n<br />\nFrom: (.+?)\n<br />\nSubject: (.*?)\n<br />\n<p>(.+?)\n<br />\n(Date: .+?\n<br />\n)?(From: (.+?)\n<br />\n)?Sender: (.+)\n<br />\\nPrecedence: bulk\n<br />\n(Reply-To: .+?\n<br />\n)?<p>(.+)#s", $this->sourceHTML, $matches);
 		if ($result) {
 			// subject line wrapped across two lines
 			$this->title = $matches[3] . $matches[4];
