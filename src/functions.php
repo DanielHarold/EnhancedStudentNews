@@ -47,7 +47,7 @@ function getIssueSourceURL($issuePath, $calvinNews) {
 }
 
 function linkEmailAddresses($in) {
-	// first remove existing email links (as in for Calvin News 201401/0001.html#5188.7)
+	// first remove existing email links (as in for Calvin News 201401/0001.html#5188.7 and 201401/0015.html#5202.13)
 	$out = preg_replace('/<a href="mailto:.+?">(.+?)<\\/a>/', '$1', $in);
 	
 	// then add email links

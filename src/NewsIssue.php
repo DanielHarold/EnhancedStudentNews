@@ -133,10 +133,11 @@ class NewsIssue {
 			}
 		} else {
 			// web format
+			// invitation to subscribe or email feedback
 			if ($this->isCalvinNews) {
-				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;"><small>If you would like to subscribe to Enhanced ' . $this->publicationTitle . ' or give feedback, please email ' . CALVIN_NEWS_SUBSCRIBE_EMAIL . '.</small></div>';
+				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email ' . CALVIN_NEWS_SUBSCRIBE_EMAIL . '. Feedback is welcome as well.</div>';
 			} else {
-				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;"><small>If you would like to subscribe to Enhanced ' . $this->publicationTitle . ' or give feedback, please email ' . STUDENT_NEWS_SUBSCRIBE_EMAIL . '.</small></div>';
+				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email ' . STUDENT_NEWS_SUBSCRIBE_EMAIL . '. Feedback is welcome as well.</div>';
 			}
 		}
 
@@ -166,7 +167,7 @@ class NewsIssue {
 		$out .= '<div style="border: solid 1px #777799; border-radius: 12px; margin: 8px 0px; background-color: #e8e8ff;">';
 		// title area within visible box
 		$out .= '<div style="padding: 8px;">' . "\n";
-
+		
 		$out .= '<h1 style="margin:0px;"><span style="color:#cc3333;text-transform:uppercase;font-size:80%;border:solid 2px #cc3333;background-color:#ffffff;padding:0px 4px;position:relative;top:-2px;">Enhanced</span> ' . str_replace(' ', '&nbsp;', $this->publicationTitle) . '</h1>';
 
 		$out .= '<div><strong>Issue #' . $this->issueNumber . ' &middot; ' . $this->issueDateString . "</strong></div>\n";
@@ -215,7 +216,7 @@ class NewsIssue {
 		// close title and contents box
 		$out .= '</div>' . "\n";
 		
-		// Output news items
+		// the news items themselves
 		foreach ($this->newsItems as $newsItem) {
 			$out .= $newsItem->getFormattedHTML($this->newsItemsCount > 1);
 		}
@@ -330,11 +331,21 @@ class NewsIssue {
 		$out = '';
 		$today = date('Y-m-d');
 		
+		// ReGathering and adjusted schedule 2014
+		if (false && '2014-02-05' == $today) {
+			$specialbg = ($this->isCalvinNews) ? '#ffffff' : '#ffffaa';
+			// oh wait... Calvin News isn't using this new code yet anyway
+			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
+				Today\'s class schedule is adjusted for ReGathering Convocation in the CFAC auditorium at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
+		}
+		
 		// Daylight Savings Time beginning in 2014
 		if ('2014-03-07' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa;font-size:large;">
 				Note: Daylight Savings Time is beginning this weekend. Remember to turn clocks <em>forward</em> 1 hour on Saturday night!</div><br />';
 		}
+		
+		// TODO Announce Friday schedule on Thursday of last week of classes in spring 2014!
 		
 		// Daylight Savings Time ending in 2014
 		if ('2014-10-31' == $today) {
