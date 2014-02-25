@@ -91,6 +91,7 @@ class NewsIssue {
 	
 	public function getFormattedHTML($emailFormat = false) {
 		$out = '';
+		$verse = '';
 
 		$out .= "<html><head><title>" . $this->issueTitle . "</title><style>body {font-family: Calibri, Arial, sans-serif; background-color: #f0f3ff;} a:link, a:visited.noMarkVisited {color:#444466;} a:visited{color:#666699;} a:hover, a:hover.noMarkVisited {color:#8e8ee4; text-decoration: none;}</style></head>\n";
 
@@ -157,10 +158,20 @@ class NewsIssue {
 		// Output the table of contents if there is more than one news item.
 		$newsItemCount = count($this->newsItems);
 		if ($newsItemCount > 1) {
-			$tocOutput = '<div style="padding: 8px; background-color: #ffffff; border-radius: 0px 0px 12px 12px">';
+			$tocOutput = '<div style="padding: 8px; background-color: #ffffff; border-radius: 0px 0px 12px 12px">' . "\n";
 			$hasAnyFood = false;
 			
-			$tocOutput .= '<ul style="padding-left: 24px;">' . "\n";
+			// daily Bible verse for Student News
+			if (/*defined('TEST_MODE') && */ $emailFormat && !$this->isCalvinNews) {
+				$verse = $this->getDailyBibleVerse();
+				if ($verse) {
+					$tocOutput .= '<div style="color: #007700; text-align: center; margin: 8px; padding: 8px; border: solid 1px #007700;">' . $verse . '</div>' . "\n";
+				}
+			}
+			
+			//$tocOutput .= '<ul style="padding-left: 24px;">' . "\n";
+			//$tocOutput .= '<ul>' . "\n";
+			$tocOutput .= '<ul style="padding-left: 5px; margin-top: 8px;">' . "\n";
 			foreach ($this->newsItems as $newsItem) {
 				$tocOutput .= "\t" . $newsItem->getTOCEntry();
 				if (!$hasAnyFood && $newsItem->hasFood) {
@@ -187,7 +198,7 @@ class NewsIssue {
 		}
 		
 		$out .= '</div>' . "\n"; // close invisible bounding box
-		$out .= $this->getFooter($emailFormat);
+		$out .= $this->getFooter($emailFormat, $verse != '');
 		$out .= '</div></body></html>';
 		
 		return $out;
@@ -279,7 +290,7 @@ class NewsIssue {
 		return $out;
 	}
 	
-	private function getFooter($emailFormat) {
+	private function getFooter($emailFormat, $citeVerseSource) {
 		$out = '';
 		
 		$out .= "\n" . '<div style="margin: 0px 12px;"><small style="color:#777777"><br />Although the <strong>' . $this->newsItemsCount . '</strong>';
@@ -292,9 +303,57 @@ class NewsIssue {
 				$out .= 'The content on this page was taken from <a href="' . $this->sourceURL . '">' . $this->sourceURL . '</a>.';
 			}
 		}
+		if ($citeVerseSource) {
+			$out .= ' <br /><br /> The Bible verse at the top is provided by OurManna.com.';
+		}
 		$out .= "</small></div>\n";
 		
 		return $out;
+	}
+	
+	private function getDailyBibleVerse() {
+		$verse = '';
+		
+		// TODO Save the daily verse on the server for future reference.
+		
+		// setup CURL and download a Bible verse of the day
+		// for documentation and other formats, see http://www.ourmanna.com/verses/api/
+		$url = 'http://www.ourmanna.com/verses/api/get/';
+		if (isset($_REQUEST['randomverse'])) {
+			$url .= '?order=random';
+		}
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		
+		ob_start(); 
+		curl_exec($ch); 
+		curl_close($ch); 
+		$verse = ob_get_contents();
+		ob_end_clean();
+		
+		//$verse = 'Here is a trustworthy saying that deserves full acceptance: Christ Jesus came into the world to save sinners—of whom I am the worst. - 1 Timothy 1:15 (NIV)';
+		
+		// check for what seems like the proper format -- hopefully this will filter out errors
+		if (preg_match('#^.+\\-.+:.+\\(.+\\)$#', $verse) >= 1) {
+			// fix special characters
+			$verse = NewsItem::fixSpecialCharacters($verse);
+			
+			// place the verse into a div, and the reference into another div
+			$verse = '<div>' . preg_replace('#(^.+)( - .+$)#', '$1</div><div>$2', $verse) . '</div>';
+		} else {
+			$verse = '';
+		}
+		
+		// Date-based verse chooser:
+		//switch (date('Y-m-d')) {
+		//	case '2014-02-10':
+		//		//$verse = 'Genesis 1:1 - &quot;In the beginning, God created the heavens and the earth.&quot;';
+		//	break;
+		//}
+		
+		//
+		
+		return $verse;
 	}
 	
 }
