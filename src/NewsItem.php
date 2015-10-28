@@ -27,7 +27,14 @@ class NewsItem {
 		$this->newsIssue = $newsIssue;
 		
 		// First, handle the cases where the subject line wraps across two lines.
-		$result = preg_match("#Date: (.+?)\n<br />\nFrom: (.+?)\n<br />\nSubject: (.*?)\n<br />\n<p>(.+?)\n<br />\n(Date: .+?\n<br />\n)?(From: (.+?)\n<br />\n)?Sender: (.+)\n<br />\\nPrecedence: bulk\n<br />\n(Reply-To: .+?\n<br />\n)?<p>(.+)#s", $this->sourceHTML, $matches);
+		$result = preg_match("#Date: (.+?)\n<br />\nFrom: (.+?)\n<br />\nSubject: (.*?)\n<br />\n<p>(.+?)\n<br />\n(Date: .+?\n<br />\n)?(From: (.+?)\n<br />\n)?Sender: (.+?)\n<br />\\nPrecedence: bulk\n<br />\n(Reply-To: .+?\n<br />\n)?<p>(.+)#s", $this->sourceHTML, $matches);
+		
+		if ($newsIssue->isStudentNews && $newsIssue->issueNumber == 3168) {
+			// September 1, 2015
+			// ESN #3168 (201509/0000) was an interesting one
+			$result = preg_match("#Date: (.+?)\n<br />\nFrom: (.+?)\n<br />\nSubject: (.*?)\n<br />\n<p>From: (.+?)\n<br />\n(To: .+?\n<br />\n)?(Date: .+?\n<br />\n)?Subject: (.+?)\n<br />\n(Date: .+?\n<br />\n)?<p>(.+)#s", $this->sourceHTML, $matches);
+		}
+		
 		if ($result) {
 			// subject line wrapped across two lines
 			$this->title = $matches[3] . $matches[4];
@@ -40,6 +47,7 @@ class NewsItem {
 				'calvin-news&#64;lists.calvin.edu', // hypothetical
 				'calvin-news-owner&#64;lists.calvin.edu', // hypothetical
 				'calvin-news-temp-owner&#64;lists.calvin.edu' // hypothetical
+				// ? - 'stunews-admin@calvin.edu', // example: student-news/201509/0000
 			);
 			
 			if (in_array($this->submitter, $incorrectFromAddresses)) {
@@ -49,6 +57,13 @@ class NewsItem {
 				$this->submitter = $matches[7];
 			}
 			$this->body = $matches[10];
+			
+			if ($newsIssue->isStudentNews && $newsIssue->issueNumber == 3168) {
+				// September 1, 2015
+				$this->body = $matches[9];
+				$this->submitter = $matches[4];
+				$this->title = $matches[7];
+			}
 			
 			// Examples in Student News:
 			//   201310/0014.html#2739.2 - has an extra From header and no extra Date header
