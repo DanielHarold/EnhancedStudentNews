@@ -81,10 +81,10 @@ class NewsItem {
 	}
 	
 	function getTOCEntry() {
-		// for some reason, Gmail puts a 15px margin-left on list items, so this will apply it in other places
-		$out = '<li style="margin-left: 15px;">';
+		// for some reason, Gmail puts a 15px margin-left on list items, so this margin-left will apply it in other clients
+		$out = '<li style="margin-left: 15px; margin-bottom: 0.2em;">';
 		
-		$out .= '<a href="#' . $this->anchorName . '">' . $this->title . '</a>';
+		$out .= '<a href="#' . $this->anchorName . '" style="text-decoration: none">' . $this->title . '</a>';
 		
 		if ($this->newsIssue->isStudentNews && $this->hasFood) {
 			//$out .= ' <span style="background-color: #ffff66; font-weight: bold; font-size: small; border: solid 1px black; padding: 0px 2px;">FOOD</span>';

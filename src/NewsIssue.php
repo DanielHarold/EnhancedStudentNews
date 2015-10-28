@@ -135,9 +135,9 @@ class NewsIssue {
 			// web format
 			// invitation to subscribe or email feedback
 			if ($this->isCalvinNews) {
-				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email ' . CALVIN_NEWS_SUBSCRIBE_EMAIL . '. Feedback is welcome as well.</div>';
+				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email <big>' . CALVIN_NEWS_SUBSCRIBE_EMAIL . '</big>.</div>';
 			} else {
-				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email ' . STUDENT_NEWS_SUBSCRIBE_EMAIL . '. Feedback is welcome as well.</div>';
+				$out .= '<div align="center" style="text=align:center;margin:16px 16px 16px;color:#777777;">If you would like to receive Enhanced ' . $this->publicationTitle . ' regularly by email, please email <big>' . STUDENT_NEWS_SUBSCRIBE_EMAIL . '</big>.</div>';
 			}
 		}
 
@@ -154,10 +154,15 @@ class NewsIssue {
 		$webNavLinks = '';
 		if (!$emailFormat) {
 			if ($this->getPreviousIssuePath()) {
-				$webNavLinks .= '<a href="' . $this->getPreviousIssuePath() . '" style="float:left;text-align:left;">&larr; Previous Issue</a>';
+				$webNavLinks .= '<span style="float:left;text-align:left;">';
+				$webNavLinks .= '<a href="' . $this->getPreviousIssuePath() . '">&larr; Previous Issue</a>';
+				$webNavLinks .= '</span>';
 			}
 			if ($this->getNextIssuePath()) {
-				$webNavLinks .= '<a href="' . $this->getNextIssuePath() . '" style="float:right;text-align:right;">Next Issue &rarr;</a>';
+				$webNavLinks .= '<span style="float:right;text-align:right;">';
+				$webNavLinks .= '<a href="' . $this->getLatestIssuePath() . '" style="padding-right: 12px; border-right: solid 1px #777799;">Latest Issue</a>';
+				$webNavLinks .= '<a href="' . $this->getNextIssuePath() . '" style="padding-left: 12px;">Next Issue &rarr;</a>';
+				$webNavLinks .= '</span>';
 			}
 			$webNavLinks .= '<div>&nbsp;</div>';
 		}
@@ -206,7 +211,7 @@ class NewsIssue {
 			
 			if ($hasAnyFood) {
 				$tocOutput .= '<div><small style="color:#555555">News items marked with an asterisk (*) appear to mention food. ';
-				$tocOutput .= 'Read the news items carefully to see whether food is actually provided at an event, as not all events with food will be marked, and some events without food will be marked.</small></div>' . "\n";
+				$tocOutput .= 'Read the news items carefully to see whether food is actually provided at an event, as these markings are not always correct, and not all events with food are marked.</small></div>' . "\n";
 			}
 			
 			$tocOutput .= '</div>' . "\n";
