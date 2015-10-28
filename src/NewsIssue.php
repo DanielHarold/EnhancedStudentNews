@@ -446,7 +446,8 @@ class NewsIssue {
 		// check for what seems like the proper format -- hopefully this will filter out errors
 		if (preg_match('#^.+\\-.+:.+\\(.+\\)$#', $verse) >= 1) {
 			// fix special characters
-			$verse = NewsItem::fixSpecialCharacters($verse);
+			// disabled on 9-8-2015: maybe special characters now fix themselves?
+			//$verse = NewsItem::fixSpecialCharacters($verse);
 			
 			// place the verse into a div, and the reference into another div
 			$verse = '<div>' . preg_replace('#(^.+)( - .+$)#', '$1</div><div>$2', $verse) . '</div>';
