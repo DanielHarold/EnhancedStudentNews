@@ -289,13 +289,7 @@ class NewsIssue {
 			return false;
 		}
 		
-		if (defined('TEST_MODE')) {
-			$baseViewPath = '/calvin-student-news/TEST/view/';
-		} else {
-			$baseViewPath = '/calvin-student-news/view/';
-		}
-		
-		return $baseViewPath . $this->previousIssuePath;
+		return $this->getBaseViewPath() . $this->previousIssuePath;
 	}
 	
 	public function getNextIssuePath() {
@@ -323,13 +317,27 @@ class NewsIssue {
 			}
 		}
 		
-		if (defined('TEST_MODE')) {
-			$baseViewPath = '/calvin-student-news/TEST/view/';
+		return $this->getBaseViewPath() . $this->nextIssuePath;
+	}
+	
+	public function getLatestIssuePath() {
+		return $this->getBaseViewPath() . 'latest';
+	}
+	
+	public function getBaseViewPath() {
+		if ($this->isCalvinNews) {
+			$baseViewPath = '/calvin-news/';
 		} else {
-			$baseViewPath = '/calvin-student-news/view/';
+			$baseViewPath = '/calvin-student-news/';
 		}
 		
-		return $baseViewPath . $this->nextIssuePath;
+		if (defined('TEST_MODE')) {
+			$baseViewPath .= 'TEST/view/';
+		} else {
+			$baseViewPath .= 'view/';
+		}
+		
+		return $baseViewPath;
 	}
 	
 	private function getSpecialHeaders() {
