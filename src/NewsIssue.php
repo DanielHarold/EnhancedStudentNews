@@ -344,24 +344,35 @@ class NewsIssue {
 		$out = '';
 		$today = date('Y-m-d');
 		
-		// ReGathering and adjusted schedule 2014
-		if (false && '2014-02-05' == $today) {
+		// ReGathering and adjusted schedule 2015
+		if ('2015-02-04' == $today) {
 			$specialbg = ($this->isCalvinNews) ? '#ffffff' : '#ffffaa';
 			// oh wait... Calvin News isn't using this new code yet anyway
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
-				Today\'s class schedule is adjusted for ReGathering Convocation in the CFAC auditorium at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
+				Today\'s class schedule is adjusted for Re-Gathering in the CFAC auditorium at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
 		}
 		
-		// Daylight Savings Time beginning in 2014
-		if ('2014-03-07' == $today) {
+		// Daylight Savings Time beginning in 2015
+		if ('2015-03-06' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa;font-size:large;">
 				Note: Daylight Savings Time is beginning this weekend. Remember to turn clocks <em>forward</em> 1 hour on Saturday night!</div><br />';
 		}
 		
-		// TODO Announce Friday schedule on Thursday of last week of classes in spring 2014!
+		if ('2015-04-02' == $today) {
+			// TODO Announce Friday schedule on Thursday, April 2, 2015.
+			// (Yes, I double-checked the date: http://www.calvin.edu/academic/services/calendar/20142015.html)
+		}
 		
-		// Daylight Savings Time ending in 2014
-		if ('2014-10-31' == $today) {
+		// Opening Convoation and adjusted schedule 2015
+		if ('2015-09-08' == $today) {
+			$specialbg = ($this->isCalvinNews) ? '#ffffff' : '#ffffaa';
+			// oh wait... Calvin News isn't using this new code yet anyway
+			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
+				Today\'s class schedule is adjusted for Opening Convocation in the Van Noord Arena at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
+		}
+		
+		// Daylight Savings Time ending in 2015
+		if ('2015-10-30' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa; font-size: large;">
 				Note: Daylight Savings Time is ending this weekend. Remember to turn clocks <em>back</em> 1 hour on Saturday night!</div><br />';
 		}
