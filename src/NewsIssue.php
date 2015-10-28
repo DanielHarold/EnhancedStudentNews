@@ -190,8 +190,8 @@ class NewsIssue {
 			$tocOutput = '<div style="padding: 8px; background-color: #ffffff; border-radius: 0px 0px 12px 12px">' . "\n";
 			$hasAnyFood = false;
 			
-			// daily Bible verse for Student News
-			if (/*defined('TEST_MODE') && */ $emailFormat && !$this->isCalvinNews) {
+			// daily Bible verse for email version
+			if ($emailFormat) {
 				$verse = $this->getDailyBibleVerse();
 				if ($verse) {
 					$tocOutput .= '<div style="color: #007700; text-align: center; margin: 8px; padding: 8px; border: solid 1px #007700;">' . $verse . '</div>' . "\n";
