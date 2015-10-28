@@ -1,5 +1,8 @@
 <?php
 
+// WARNING -- DO NOT SAVE THIS FILE USING cPanel
+// OR THE SPECIAL CHARACTERS WILL BE CORRUPTED!
+
 require_once ('functions.php');
 
 class NewsItem {
@@ -62,7 +65,7 @@ class NewsItem {
 			$this->body = $matches[4];
 		}
 		
-		$this->title = NewsItem::fixSpecialCharacters($this->title);
+		$this->title = NewsItem::fixTitle(NewsItem::fixSpecialCharacters($this->title));
 		$this->body = NewsItem::fixSpecialCharacters($this->body);
 		
 		// TODO Determine whether it is better to fix special characters in the news item body
@@ -181,6 +184,22 @@ class NewsItem {
 		$unwrappedText = preg_replace('#^\\s*<br />(.*)<br />\\s*$#s', '$1', $unwrappedText);
 		
 		return $unwrappedText;
+	}
+	
+	public static function fixTitle($title) {
+		// This function changes titles like
+		//   =?Windows-1252?Q?CHAPEL:::Tue::Pray:_=93Self-Control=94_Student_Worship_T?=
+		// to be like
+		//   CHAPEL:::Tue::Pray: �Self-Control� Student Worship T
+		if (preg_match('#=\\?[^?]+\\?Q\\?(.+)\\?=#', $title, $matches)) {
+			$newTitle = str_replace('_', ' ', $matches[1]);
+			$newTitle = str_replace('=93', '�', $newTitle);
+			$newTitle = str_replace(array('=94', '=92'), '�', $newTitle);
+		} else {
+			$newTitle = $title;
+		}
+		
+		return $newTitle;
 	}
 	
 	public static function fixSpecialCharacters($text) {
