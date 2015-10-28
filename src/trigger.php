@@ -10,6 +10,8 @@ require_once ('functions.php');
 echo '------' . "\n";
 echo 'Triggered at ' . date(DATE_RSS) . "\n";
 
+//die ("\nAborted: ESN prod (2014) is disabled as of 10-28-2015\nin favor of the 2013 edition.\n\n");
+
 $issue_manual_override = FALSE;
 //$issue_manual_override = 'student-news/201508/0017';
 
