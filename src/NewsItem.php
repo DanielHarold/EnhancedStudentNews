@@ -87,12 +87,12 @@ class NewsItem {
 		//      *before* or *after* unwrapping the text.
 		
 		if ($this->newsIssue->isStudentNews) {
-			$foods = '(breakfast|lunch|dinner|supper|food|pizza|refreshments|appetizers)';
+			$foods = '(breakfast|lunch|dinner|supper|food|pizza|refreshments|appetizers|snacks|bagels)';
 			if (strpos(strtolower($this->body), 'refreshments') !== false
 					|| preg_match('#' . $foods . '[^.!?;]+(provided|available|included|served|offered)#s', strtolower($this->body))
-					|| preg_match('#(free|there will be)[^.!?;A-Za-z]+' . $foods . '#s', strtolower($this->body))) {
+					|| preg_match('#(free|there will be)[^.!?;]+' . $foods . '#s', strtolower($this->body))) {
 				$this->hasFood = true;
-			} else if ($this->newsIssue->isStudentNews && preg_match('#(breakfast|lunch|dinner|supper|pizza|refreshment|appetizer|donut|doughnut|cookie)#s', strtolower($this->body))) {
+			} else if ($this->newsIssue->isStudentNews && preg_match('#(breakfast|lunch|dinner|supper|pizza|refreshment|appetizer|snack|bagel|donut|doughnut|cookie)#s', strtolower($this->body))) {
 				$this->maybeFood = true;
 			}
 		}
