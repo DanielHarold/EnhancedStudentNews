@@ -344,27 +344,27 @@ class NewsIssue {
 		$out = '';
 		$today = date('Y-m-d');
 		
-		// ReGathering and adjusted schedule 2015
-		if ('2015-02-04' == $today) {
-			$specialbg = ($this->isCalvinNews) ? '#ffffff' : '#ffffaa';
+		// ReGathering and adjusted schedule 2016
+		if ('2016-02-01' == $today || '2016-01-31' == $today) {
+			$specialbg = (false && $this->isCalvinNews) ? '#ffffff' : '#ffffaa';
 			// oh wait... Calvin News isn't using this new code yet anyway
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
-				Today\'s class schedule is adjusted for Re-Gathering in the CFAC auditorium at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
+				Today\'s class schedule is adjusted for <a href="https://www.calvin.edu/calendar/event.html?id=8938fd26-ea6a-4868-af34-12c52802bcf6">ReGathering</a> in the CFAC auditorium at 9:50am. See the <a href="http://www.calvin.edu/academic/services/calendar/modifiedschedule.html">modified class schedule</a>.</div><br />';
 		}
 		
 		// Daylight Savings Time beginning in 2015
-		if ('2015-03-06' == $today) {
+		if (false && '2015-03-06' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa;font-size:large;">
 				Note: Daylight Savings Time is beginning this weekend. Remember to turn clocks <em>forward</em> 1 hour on Saturday night!</div><br />';
 		}
 		
-		if ('2015-04-02' == $today) {
+		if (false && '2015-04-02' == $today) {
 			// TODO Announce Friday schedule on Thursday, April 2, 2015.
 			// (Yes, I double-checked the date: http://www.calvin.edu/academic/services/calendar/20142015.html)
 		}
 		
 		// Opening Convoation and adjusted schedule 2015
-		if ('2015-09-08' == $today) {
+		if (false && '2015-09-08' == $today) {
 			$specialbg = ($this->isCalvinNews) ? '#ffffff' : '#ffffaa';
 			// oh wait... Calvin News isn't using this new code yet anyway
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
@@ -372,7 +372,7 @@ class NewsIssue {
 		}
 		
 		// Daylight Savings Time ending in 2015
-		if ('2015-10-30' == $today) {
+		if (false && '2015-10-30' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa; font-size: large;">
 				Note: Daylight Savings Time is ending this weekend. Remember to turn clocks <em>back</em> 1 hour on Saturday night!</div><br />';
 		}
