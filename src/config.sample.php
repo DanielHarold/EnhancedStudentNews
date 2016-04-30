@@ -12,4 +12,7 @@ define ('STUDENT_NEWS_SUBSCRIBE_EMAIL', '<span style="color: #333355">esn</span>
 
 define ('CONTACT_NAME', 'John Doe');
 
+define ('CALVIN_NEWS_BASE_VIEW_PATH', 'view.php?issue=calvin-news/');
+define ('STUDENT_NEWS_BASE_VIEW_PATH', 'view.php?issue=student-news/');
+
 ?>

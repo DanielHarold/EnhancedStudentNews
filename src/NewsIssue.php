@@ -326,15 +326,9 @@ class NewsIssue {
 	
 	public function getBaseViewPath() {
 		if ($this->isCalvinNews) {
-			$baseViewPath = '/calvin-news/';
+			$baseViewPath = CALVIN_NEWS_BASE_VIEW_PATH;
 		} else {
-			$baseViewPath = '/calvin-student-news/';
-		}
-		
-		if (defined('TEST_MODE')) {
-			$baseViewPath .= 'TEST/view/';
-		} else {
-			$baseViewPath .= 'view/';
+			$baseViewPath = STUDENT_NEWS_BASE_VIEW_PATH;
 		}
 		
 		return $baseViewPath;
