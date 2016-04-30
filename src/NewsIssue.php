@@ -345,7 +345,7 @@ class NewsIssue {
 		$today = date('Y-m-d');
 		
 		// ReGathering and adjusted schedule 2016
-		if ('2016-02-01' == $today || '2016-01-31' == $today) {
+		if (false && '2016-02-01' == $today || '2016-01-31' == $today) {
 			$specialbg = (false && $this->isCalvinNews) ? '#ffffff' : '#ffffaa';
 			// oh wait... Calvin News isn't using this new code yet anyway
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:'.$specialbg.';font-size:large;">
@@ -375,26 +375,6 @@ class NewsIssue {
 		if (false && '2015-10-30' == $today) {
 			$out .= '<div style="text-align:center;border: solid 2px #000000;font-weight:bold;margin:16px 16px 0px;padding: 16px;background-color:#ffffaa; font-size: large;">
 				Note: Daylight Savings Time is ending this weekend. Remember to turn clocks <em>back</em> 1 hour on Saturday night!</div><br />';
-		}
-		
-		// Christmas buffet in dining halls in 2013
-		if (false && '2013-12-05' == $today) {
-			$out .= '<div style="text-align:center;border: solid 2px #990000;font-weight:bold;margin:0px 16px 0px;padding: 16px;background-color:#99ff99;color:#990000;">Don\'t miss the <big>Christmas Buffet</big> at Commons and Knollcrest dining halls tonight!</div><br />';
-
-		}
-
-		// Christmas 2013 thank-you and congratulations
-		if (false && '2013-12-23' == $today && $this->isCalvinNews) {
-			$out .= '<div style="background-color:#ffffff;border-style: double; border-color: #008800;padding: 12px;margin:16px 16px 0px;color:#008800;font-family:Cambria, Times New Roman, serif;"><big><strong>Merry Christmas!</strong>
-				Thank you for all the <span style="color:#004400">hard</span> work you have been doing for Calvin College in this season!
-				May God bless you and continue to shower you with His unending grace during this Christmas season and in 2014!</big>
-				<div style="text-align:right;"><small><br />from ' . CONTACT_NAME . ' (student) at Enhanced Calvin News</small></div></div><br />';
-		}
-		if (false && '2013-12-23' == $today && !$this->isCalvinNews) {
-			$out .= '<div style="background-color:#ffffff;border-style: double; border-color: #008800;padding: 12px;margin:16px 16px 0px;color:#008800;font-family:Cambria, serif;"><big><strong>Merry Christmas!</strong>
-				Congratulations on finishing the Fall 2013 semester!
-				May God bless you and continue to shower you with His unending grace during this Christmas season and in 2014!</big>
-				</div></div><br />';
 		}
 		
 		return $out;
