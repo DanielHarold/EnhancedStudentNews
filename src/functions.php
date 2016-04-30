@@ -79,5 +79,3 @@ function writeFile($fileName, $content) {
 
 	fclose($handle);
 }
-
-?>

@@ -14,5 +14,3 @@ define ('CONTACT_NAME', 'John Doe');
 
 define ('CALVIN_NEWS_BASE_VIEW_PATH', 'view.php?issue=calvin-news/');
 define ('STUDENT_NEWS_BASE_VIEW_PATH', 'view.php?issue=student-news/');
-
-?>

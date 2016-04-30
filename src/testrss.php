@@ -9,5 +9,3 @@ require_once ('NewsIssue.php');
 $newsIssue = NewsIssue::getLatestIssue(isset($_GET['calvinnews']));
 $rss = $newsIssue->getRSS();
 echo $rss;
-
-?>

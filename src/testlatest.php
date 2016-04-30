@@ -8,5 +8,3 @@ require_once ('NewsIssue.php');
 
 $newsIssue = NewsIssue::getLatestIssue(isset($_GET['calvinnews']));
 echo $newsIssue->getFormattedHTML();
-
-?>

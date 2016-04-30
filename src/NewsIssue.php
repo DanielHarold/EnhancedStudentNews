@@ -442,5 +442,3 @@ class NewsIssue {
 	}
 	
 }
-
-?>

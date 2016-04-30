@@ -14,5 +14,3 @@ if (isset($_REQUEST['issue'])) {
 }
 
 echo $newsIssue->getFormattedHTML(isset($_REQUEST['asifto']));
-
-?>

@@ -28,5 +28,3 @@ $success = mail($target, $newsIssue->issueTitle, $formattedNews, "From: Enhanced
 echo $target . ': ' . $success . "\n";
 
 echo 'Completed.' . "\n\n";
-
-?>
