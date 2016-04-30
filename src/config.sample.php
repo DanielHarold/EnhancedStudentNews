@@ -22,3 +22,25 @@ define ('FROM_EMAIL', 'enhanced-student-news');
 
 // Email address to send debugging messages to
 define ('DEBUG_EMAIL', 'test@example.com');
+
+// Recipients for Enhanced Calvin News emails
+$calvin_news_recipients = array(
+	// TARGET EMAIL ADDRESSES GO HERE
+//	'john@example.com',
+//	'jane@example.com',
+
+	DEBUG_EMAIL,
+	DEBUG_EMAIL,	// for testing redundancy
+	// If the script times out, DEBUG_EMAIL will be affected, since this address is last.
+);
+
+// Recipients for Enhanced Student News emails
+$student_news_recipients = array(
+	// TARGET EMAIL ADDRESSES GO HERE
+//	'john@example.com',
+//	'jane@example.com',
+
+	DEBUG_EMAIL,
+	DEBUG_EMAIL,	// for testing redundancy
+	// If the script times out, DEBUG_EMAIL will be affected, since this address is last.
+);

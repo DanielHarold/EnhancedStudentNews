@@ -25,15 +25,11 @@ if (!defined('NEWS_TRIGGER'))
 
 include_once ('common.php');
 
-$targets = array(
-	// TARGET EMAIL ADDRESSES GO HERE
-//	'john@example.com',
-//	'jane@example.com',
-
-	DEBUG_EMAIL,
-	DEBUG_EMAIL,	// for testing redundancy
-	// If the script times out, DEBUG_EMAIL will be affected, since this address is last.
-);
+if ($calvinNews) {
+	$targets = $calvin_news_recipients;
+} else {
+	$targets = $student_news_recipients;
+}
 
 // TODO automatically add @students.calvin.edu for Student News when no domain is specified
 //      and add @calvin.edu for Calvin News
