@@ -102,7 +102,7 @@ class NewsIssue {
 		$out = '';
 		$verse = '';
 
-		$out .= "<html><head><meta name="robots" content="noindex, nofollow" /><title>" . $this->issueTitle . "</title><style>body {font-family: Calibri, Arial, sans-serif; background-color: #f1f1ff;} a:link, a:visited.noMarkVisited {color:#444466;} a:visited{color:#666699;} a:hover, a:hover.noMarkVisited {color:#8e8ee4; text-decoration: none;}</style></head>\n";
+		$out .= "<html><head><meta name=\"robots\" content=\"noindex, nofollow\" /><title>" . $this->issueTitle . "</title><style>body {font-family: Calibri, Arial, sans-serif; background-color: #f1f1ff;} a:link, a:visited.noMarkVisited {color:#444466;} a:visited{color:#666699;} a:hover, a:hover.noMarkVisited {color:#8e8ee4; text-decoration: none;}</style></head>\n";
 
 		$out .= '<body style="margin-left: 0px; margin-right: 0px;">' . "\n";
 
